@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Next News Portal",
-  description: "Using Next.js to build a news portal",
+  title: "Daily News",
+  description: "Bangladesh Polytechnic Institute Project",
 };
 
 export default function RootLayout({
