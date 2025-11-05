@@ -12,7 +12,7 @@ const NewsList = () => {
     useEffect(() => {
         const fetchNews = async () => {
             try {
-                const res = await fetch('https://fakestoreapi.com/products');
+                const res = await fetch('/news.json');
                 const data = await res.json();
                 setNews(data); // 👈 news state set
             } catch (error) {

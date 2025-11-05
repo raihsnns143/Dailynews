@@ -29,7 +29,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
   const { slug } = params; 
   
   // API কল
-  const res = await fetch(`https://fakestoreapi.com/products/${slug}`); 
+  const res = await fetch(`/news.json/${slug}`); 
 
   if (!res.ok) {
     return notFound();

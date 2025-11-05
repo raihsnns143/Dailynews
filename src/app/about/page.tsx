@@ -65,32 +65,43 @@ const Aboutpage = () => {
       </section>
 
       {/* ---------- Our Team ---------- */}
-      <section className="py-16 px-6 bg-blue-50">
-        <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-3xl font-semibold text-blue-700 mb-10">
-            Meet Our Editorial Team
-          </h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { name: "Farhan Rahman", role: "Editor-in-Chief" },
-              { name: "Nadia Karim", role: "Senior Journalist" },
-              { name: "Rafiul Hasan", role: "Digital Media Specialist" },
-              { name: "Sara Alam", role: "Content Strategist" },
-            ].map((member, i) => (
-              <div
-                key={i}
-                className="bg-white p-6 rounded-xl shadow hover:shadow-lg transition"
-              >
-                <div className="w-24 h-24 mx-auto bg-gray-200 rounded-full mb-4"></div>
-                <h3 className="text-lg font-semibold text-gray-800">
-                  {member.name}
-                </h3>
-                <p className="text-gray-600 text-sm">{member.role}</p>
-              </div>
-            ))}
+     <section className="py-16 px-6 bg-blue-50 dark:bg-gray-900 transition-colors duration-300">
+  <div className="max-w-5xl mx-auto text-center">
+    <h2 className="text-3xl font-semibold text-blue-700 dark:text-blue-400 mb-10">
+      Meet Our Editorial Team
+    </h2>
+
+    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      {[
+        { name: "Raihan", role: "Editor-in-Chief", image: "/images/team1.jpg" },
+        { name: "Robiul", role: "Senior Journalist", image: "/images/team2.jpg" },
+        { name: "Fardin", role: "Digital Media Specialist", image: "/images/team3.jpg" },
+        { name: "Alif", role: "Content Strategist", image: "/images/team4.jpg" },
+      ].map((member, i) => (
+        <div
+          key={i}
+          className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow hover:shadow-lg transition-colors duration-300"
+        >
+          <div className="w-24 h-24 mx-auto mb-4 relative">
+            <img
+              src={member.image}
+              alt={member.name}
+              className="w-full h-full rounded-full object-cover"
+            />
           </div>
+
+          <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
+            {member.name}
+          </h3>
+          <p className="text-gray-600 dark:text-gray-300 text-sm">
+            {member.role}
+          </p>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
+
 
       {/* ---------- Contact Section ---------- */}
       <section className="bg-gradient-to-r from-indigo-700 to-blue-600 py-16 text-center text-white">
