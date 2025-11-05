@@ -7,15 +7,12 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { RxCross2 } from "react-icons/rx";
 import { usePathname } from 'next/navigation'
 import { Switch } from "@/components/ui/switch"
-import { useDarkMode } from '@/hooks/useDarkMode'; // ✅ এই hook import করা হলো
 
 const Navbar = () => {
   const pathname = usePathname();
   const [isMenuOpen, setMenuOpen] = React.useState(false);
   const toggleMenu = () => setMenuOpen(!isMenuOpen);
 
-  // Dark Mode
-  const [isDark, toggleDarkMode] = useDarkMode();
 
   return (
     <header className='py-4 shadow-md sticky top-0 bg-white dark:bg-gray-900 z-50 transition-colors duration-300'>
@@ -66,8 +63,6 @@ const Navbar = () => {
 
           <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700 mt-4">
             <div className="flex items-center space-x-2">
-              <span className="text-sm text-gray-700 dark:text-gray-300">Dark Mode</span>
-              <Switch checked={isDark} onCheckedChange={toggleDarkMode} />
             </div>
             <Button variant="default" onClick={toggleMenu}>Login</Button>
           </div>
