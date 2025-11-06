@@ -18,24 +18,31 @@ interface NewsItem {
 
 // ✅ এরর ফিক্স: Page Props-এর জন্য type ব্যবহার করা হলো (যাতে বিল্ড এরর না আসে)
 type NewsPageProps = {
-  params: { [key: string]: string }; // জেনিরিক টাইপ ব্যবহার করা হলো
+  params: { [key: string]: string }; // জেনেরিক টাইপ ব্যবহার করা হলো
 };
 
-
-// Page Component
+// 🩵 Fixed Page Component
 export default async function NewsPage({ params }: NewsPageProps) {
-  
-  // params অবজেক্ট থেকে slug ডি-স্ট্রাকচার করা
-  const { slug } = params; 
-  
-  // API কল
-  const res = await fetch(`/news.json/${slug}`); 
+  const { slug } = params;
+
+  // ✅ Base URL dynamic করা হলো (local + live দুই জায়গায় কাজ করবে)
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+
+  // ✅ এখানে শুধু একবার news.json ফেচ করা হচ্ছে (error fix)
+  const res = await fetch(`${baseUrl}/news.json`, { cache: 'no-store' });
 
   if (!res.ok) {
     return notFound();
   }
 
-  const item: NewsItem = await res.json();
+  const data: NewsItem[] = await res.json();
+
+  // ✅ slug অনুযায়ী item খোঁজা
+  const item = data.find((n) => n.id.toString() === slug);
+
+  if (!item) {
+    return notFound();
+  }
 
   // Description Auto-expansion logic (ঠিক আছে)
   const expandedDescription =
