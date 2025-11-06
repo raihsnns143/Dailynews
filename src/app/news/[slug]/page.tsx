@@ -21,23 +21,31 @@ type NewsPageProps = {
   params: { [key: string]: string }; // জেনেরিক টাইপ ব্যবহার করা হলো
 };
 
-// 🩵 Fixed Page Component
+// 🩵 Fixed Page Component (works both local + live)
 export default async function NewsPage({ params }: NewsPageProps) {
   const { slug } = params;
 
-  // ✅ Base URL dynamic করা হলো (local + live দুই জায়গায় কাজ করবে)
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+  // ✅ Live domain ও local দুই জায়গায় dynamic base URL handle করা হচ্ছে
+  const baseUrl =
+    process.env.NEXT_PUBLIC_BASE_URL ||
+    (process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : 'https://www.raihans.shop');
 
-  // ✅ এখানে শুধু একবার news.json ফেচ করা হচ্ছে (error fix)
-  const res = await fetch(`${baseUrl}/news.json`, { cache: 'no-store' });
+  // ✅ Absolute URL ব্যবহার করা হয়েছে, যাতে server-side fetch সবসময় সফল হয়
+  const res = await fetch(`${baseUrl}/news.json`, {
+    cache: 'no-store',
+    next: { revalidate: 0 },
+  });
 
   if (!res.ok) {
+    console.error(`❌ Failed to fetch: ${baseUrl}/news.json`);
     return notFound();
   }
 
   const data: NewsItem[] = await res.json();
 
-  // ✅ slug অনুযায়ী item খোঁজা
+  // ✅ slug অনুযায়ী item ফিল্টার
   const item = data.find((n) => n.id.toString() === slug);
 
   if (!item) {
