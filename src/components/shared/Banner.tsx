@@ -33,21 +33,21 @@ const Banner: React.FC = () => {
                 if (!res.ok) throw new Error('Failed to fetch news');
 
                 const data: NewsItem[] = await res.json();
+                if (!data.length) return;
 
-                if (!data.length) return; // no news, do nothing
                 setNewsList(data);
-
-                const startIndex = Math.floor(Math.random() * data.length);
-                setIndex(startIndex);
+                setIndex(Math.floor(Math.random() * data.length));
 
                 interval = setInterval(() => {
+                    // 1️⃣ Fade out current news
                     setFade(false);
+
+                    // 2️⃣ Wait for fade-out to finish before changing index
                     setTimeout(() => {
                         setIndex((prev) => (prev + 1) % data.length);
-                        setFade(true);
-                    }, 400); // slightly smoother fade
-                }, 4000); // show each news longer
-
+                        setFade(true); // fade in new news
+                    }, 500); // matches Tailwind transition duration
+                }, 4000); // 4 seconds per slide
             } catch (error) {
                 console.error('Error fetching news:', error);
             }
@@ -59,11 +59,14 @@ const Banner: React.FC = () => {
     }, []);
 
     const news = newsList[index];
-    if (!news) return (
-        <div className="text-center py-20 text-gray-500">
-            Loading news...
-        </div>
-    );
+
+    if (!news) {
+        return (
+            <div className="text-center py-20 text-gray-500">
+                Loading news...
+            </div>
+        );
+    }
 
     const handleReadMore = () => {
         router.push(`/news/${news.id}`);
