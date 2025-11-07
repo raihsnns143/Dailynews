@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Button } from '../ui/button';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import clsx from 'clsx';
 
 interface NewsItem {
     id: number;
@@ -19,21 +20,42 @@ interface NewsItem {
 
 const Banner = () => {
     const router = useRouter();
-    const [news, setNews] = useState<NewsItem | null>(null);
+    const [newsList, setNewsList] = useState<NewsItem[]>([]);
+    const [index, setIndex] = useState(0);
+    const [fade, setFade] = useState(true);
 
     useEffect(() => {
+        let interval: any;
+
         const fetchNews = async () => {
             try {
                 const res = await fetch('/news.json');
                 const data: NewsItem[] = await res.json();
-                setNews(data[0]);
+
+                setNewsList(data);
+
+                const startIndex = Math.floor(Math.random() * data.length);
+                setIndex(startIndex);
+
+                interval = setInterval(() => {
+                    setFade(false);
+                    setTimeout(() => {
+                        setIndex((prev) => (prev + 1) % data.length);
+                        setFade(true);
+                    }, 300); // fade out time
+                }, 3000);
+
             } catch (error) {
                 console.error('Error fetching news:', error);
             }
         };
+
         fetchNews();
+
+        return () => clearInterval(interval);
     }, []);
 
+    const news = newsList[index];
     if (!news) return null;
 
     const handleReadMore = () => {
@@ -43,9 +65,11 @@ const Banner = () => {
     return (
         <div className="relative bg-gray-50 py-8 sm:py-10 overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 items-center">
-                
-                {/* Text */}
-                <div className="space-y-3 md:space-y-5 text-center md:text-left">
+
+                <div className={clsx(
+                    "space-y-3 md:space-y-5 text-center md:text-left transition-opacity duration-500",
+                    fade ? "opacity-100" : "opacity-0"
+                )}>
                     <span className="text-xs sm:text-sm text-gray-500 uppercase tracking-wide">
                         Latest News
                     </span>
@@ -64,8 +88,10 @@ const Banner = () => {
                     </Button>
                 </div>
 
-                {/* Image */}
-                <div className="relative w-full h-48 sm:h-64 md:h-80 lg:h-96 rounded-lg overflow-hidden shadow-lg">
+                <div className={clsx(
+                    "relative w-full h-48 sm:h-64 md:h-80 lg:h-96 rounded-lg overflow-hidden shadow-lg transition-opacity duration-500",
+                    fade ? "opacity-100" : "opacity-0"
+                )}>
                     <Image
                         src={news.image}
                         alt={news.title}
@@ -73,7 +99,6 @@ const Banner = () => {
                         className="object-cover rounded-lg"
                         priority
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent rounded-lg"></div>
                 </div>
 
             </div>
