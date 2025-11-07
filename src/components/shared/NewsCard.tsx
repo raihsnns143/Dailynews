@@ -17,11 +17,12 @@ export interface NewsItem {
 
 interface NewsCardProps {
   item: NewsItem;
+  className?: string; // ✅ add this
 }
 
-const NewsCard = ({ item }: NewsCardProps) => {
+const NewsCard = ({ item, className = "" }: NewsCardProps) => {
   return (
-    <div className="max-w-xs w-full border p-4 rounded-md shadow-md mx-auto">
+    <div className={`max-w-xs w-full border p-4 rounded-md shadow-md mx-auto ${className}`}>
       <Link href={`/news/${item.id}`} className="block overflow-hidden">
         <div className="flex justify-center">
           <Image
