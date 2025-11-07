@@ -18,20 +18,23 @@ interface NewsItem {
     };
 }
 
-const Banner = () => {
+const Banner: React.FC = () => {
     const router = useRouter();
     const [newsList, setNewsList] = useState<NewsItem[]>([]);
-    const [index, setIndex] = useState(0);
-    const [fade, setFade] = useState(true);
+    const [index, setIndex] = useState<number>(0);
+    const [fade, setFade] = useState<boolean>(true);
 
     useEffect(() => {
-        let interval: any;
+        let interval: NodeJS.Timeout;
 
         const fetchNews = async () => {
             try {
                 const res = await fetch('/news.json');
+                if (!res.ok) throw new Error('Failed to fetch news');
+
                 const data: NewsItem[] = await res.json();
 
+                if (!data.length) return; // no news, do nothing
                 setNewsList(data);
 
                 const startIndex = Math.floor(Math.random() * data.length);
@@ -42,8 +45,8 @@ const Banner = () => {
                     setTimeout(() => {
                         setIndex((prev) => (prev + 1) % data.length);
                         setFade(true);
-                    }, 300); // fade out time
-                }, 3000);
+                    }, 400); // slightly smoother fade
+                }, 4000); // show each news longer
 
             } catch (error) {
                 console.error('Error fetching news:', error);
@@ -56,7 +59,11 @@ const Banner = () => {
     }, []);
 
     const news = newsList[index];
-    if (!news) return null;
+    if (!news) return (
+        <div className="text-center py-20 text-gray-500">
+            Loading news...
+        </div>
+    );
 
     const handleReadMore = () => {
         router.push(`/news/${news.id}`);
@@ -66,6 +73,7 @@ const Banner = () => {
         <div className="relative bg-gray-50 py-8 sm:py-10 overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 items-center">
 
+                {/* Text */}
                 <div className={clsx(
                     "space-y-3 md:space-y-5 text-center md:text-left transition-opacity duration-500",
                     fade ? "opacity-100" : "opacity-0"
@@ -88,6 +96,7 @@ const Banner = () => {
                     </Button>
                 </div>
 
+                {/* Image */}
                 <div className={clsx(
                     "relative w-full h-48 sm:h-64 md:h-80 lg:h-96 rounded-lg overflow-hidden shadow-lg transition-opacity duration-500",
                     fade ? "opacity-100" : "opacity-0"
@@ -98,6 +107,7 @@ const Banner = () => {
                         fill
                         className="object-cover rounded-lg"
                         priority
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                 </div>
 
