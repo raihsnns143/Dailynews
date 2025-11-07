@@ -1,4 +1,3 @@
-import { notFound } from 'next/navigation';
 import Image from 'next/image';
 
 // 🟢 Type definition for News Item
@@ -20,68 +19,65 @@ type NewsPageProps = {
   params: { slug: string };
 };
 
-// 🟢 Environment variable declarations (avoid TS warning)
-declare const process: {
-  env: {
-    NEXT_PUBLIC_BASE_URL?: string;
-    VERCEL_URL?: string;
-  };
-};
-
 // 🩵 Page Component
 export default async function NewsPage({ params }: NewsPageProps) {
   const { slug } = params;
 
-  // ✅ Dynamic Base URL (works both local + live)
+  // ✅ Dynamic Base URL
   const baseUrl =
     process.env.NEXT_PUBLIC_BASE_URL ||
-    (process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : 'https://www.raihans.shop');
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://www.raihans.shop');
 
-  // ✅ Safe URL creation
   const url = new URL('/news.json', baseUrl).toString();
 
   // eslint-disable-next-line no-console
   console.log('🟢 Fetching from:', url);
 
-  // ✅ Fetch news data
-  const res = await fetch(url, {
-    cache: 'no-store',
-    next: { revalidate: 0 },
-  });
+  let data: NewsItem[] = [];
+  try {
+    const res = await fetch(url, {
+      cache: 'no-store',
+      next: { revalidate: 0 },
+    });
 
-  if (!res.ok) {
-    // eslint-disable-next-line no-console
-    console.error(`❌ Failed to fetch: ${url}`);
-    return notFound();
+    if (!res.ok) {
+      throw new Error(`Failed to fetch: ${res.status}`);
+    }
+
+    data = await res.json();
+  } catch (error) {
+    console.error('❌ Error fetching news:', error);
+    // Show error message instead of crashing
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-red-600 text-lg">Failed to load news.</p>
+      </div>
+    );
   }
 
-  const data: NewsItem[] = await res.json();
-
-  // ✅ Match news item by slug (id)
   const item = data.find((n) => n.id.toString() === slug);
 
   if (!item) {
-    return notFound();
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-gray-700 text-xl">News not found.</p>
+      </div>
+    );
   }
 
-  // ✅ Expand description if too short
   const expandedDescription =
     item.description.length > 500
       ? item.description
       : Array(5).fill(item.description).join(' ');
 
-  // ✅ Render page
   return (
     <div className="min-h-screen bg-background mt-8">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 bg-white rounded-xl shadow-xl overflow-hidden min-h-[80vh]">
-
           {/* 🖼️ Image Section */}
           <div className="flex justify-center items-center bg-gray-50 p-8">
             <Image
-              src={item.image as string}
+              src={item.image || '/placeholder.png'} // fallback image
               alt={item.title}
               width={400}
               height={400}
@@ -109,4 +105,3 @@ export default async function NewsPage({ params }: NewsPageProps) {
     </div>
   );
 }
-
