@@ -2,43 +2,30 @@
   {
     "id": 1,
     "title": "New Tech Revolution",
-    "price": 100,
     "description": "Latest updates on technology.",
     "category": "technology",
     "image": "/images/tech1.jpg",
-    "rating": {
-      "rate": 4.5,
-      "count": 120
-    }
+    "rating": { "rate": 4.5, "count": 120 }
   },
   {
     "id": 2,
     "title": "Global Economy News",
-    "price": 80,
     "description": "Updates on global economy trends.",
     "category": "economy",
     "image": "/images/economy1.jpg",
-    "rating": {
-      "rate": 4.0,
-      "count": 90
-    }
+    "rating": { "rate": 4.0, "count": 90 }
   },
   {
     "id": 3,
     "title": "Health Tips",
-    "price": 50,
     "description": "Daily health and fitness tips.",
     "category": "health",
     "image": "/images/healt1h.jpg",
-    "rating": {
-      "rate": 4.8,
-      "count": 150
-    }
+    "rating": { "rate": 4.8, "count": 150 }
   },
   {
     "id": 4,
     "title": "AI Breakthroughs",
-    "price": 110,
     "description": "New AI technologies transforming industries worldwide.",
     "category": "technology",
     "image": "/images/tech2.jpg",
@@ -47,7 +34,6 @@
   {
     "id": 5,
     "title": "Tech Startups Rising",
-    "price": 95,
     "description": "Emerging tech startups that are changing the market landscape.",
     "category": "technology",
     "image": "/images/tech3.jpg",
@@ -56,7 +42,6 @@
   {
     "id": 6,
     "title": "Stock Market Insights",
-    "price": 85,
     "description": "Expert analysis of recent stock market fluctuations.",
     "category": "economy",
     "image": "/images/economy2.jpg",
@@ -65,7 +50,6 @@
   {
     "id": 7,
     "title": "Global Trade Agreements",
-    "price": 90,
     "description": "Major trade agreements shaping international relations.",
     "category": "economy",
     "image": "/images/economy3.jpg",
@@ -74,7 +58,6 @@
   {
     "id": 8,
     "title": "Nutrition Tips for 2025",
-    "price": 55,
     "description": "Important nutrition tips to improve overall health.",
     "category": "health",
     "image": "/images/health2.jpg",
@@ -83,7 +66,6 @@
   {
     "id": 9,
     "title": "Fitness Trends This Year",
-    "price": 60,
     "description": "Popular fitness trends and workout routines.",
     "category": "health",
     "image": "/images/health3.jpg",
@@ -92,7 +74,6 @@
   {
     "id": 10,
     "title": "Cybersecurity Alerts",
-    "price": 120,
     "description": "Latest cybersecurity threats and how to protect your data.",
     "category": "technology",
     "image": "/images/tech4.jpg",
@@ -101,7 +82,6 @@
   {
     "id": 11,
     "title": "Economic Policies Update",
-    "price": 88,
     "description": "Recent government economic policies affecting the market.",
     "category": "economy",
     "image": "/images/economy4.jpg",
@@ -110,7 +90,6 @@
   {
     "id": 12,
     "title": "Mental Health Awareness",
-    "price": 65,
     "description": "Tips and guidance for mental health and stress management.",
     "category": "health",
     "image": "/images/health4.jpg",
@@ -119,11 +98,273 @@
   {
     "id": 13,
     "title": "Blockchain Innovations",
-    "price": 130,
     "description": "How blockchain is changing finance and tech industries.",
     "category": "technology",
     "image": "/images/tech5.jpg",
     "rating": { "rate": 4.5, "count": 110 }
+  },
+  {
+    "id": 14,
+    "title": "Plant-Based Food Boom",
+    "description": "How plant-based products are taking over the food industry.",
+    "category": "food",
+    "image": "/images/food1.jpg",
+    "rating": { "rate": 4.4, "count": 95 }
+  },
+  {
+    "id": 15,
+    "title": "Street Food Trends",
+    "description": "Top trending street foods around the world in 2025.",
+    "category": "food",
+    "image": "/images/food2.jpg",
+    "rating": { "rate": 4.7, "count": 140 }
+  },
+  {
+    "id": 16,
+    "title": "Healthy Breakfast Ideas",
+    "description": "Quick and easy breakfast recipes for busy mornings.",
+    "category": "food",
+    "image": "/images/food3.jpg",
+    "rating": { "rate": 4.6, "count": 125 }
+  },
+  {
+    "id": 17,
+    "title": "Food Delivery Market Growth",
+    "description": "How food delivery apps are changing consumer habits.",
+    "category": "food",
+    "image": "/images/food4.jpg",
+    "rating": { "rate": 4.3, "count": 88 }
+  },
+  {
+    "id": 18,
+    "title": "Global Spices Demand Rising",
+    "description": "Spice trade demand increasing due to new food trends.",
+    "category": "food",
+    "image": "/images/food5.jpg",
+    "rating": { "rate": 4.5, "count": 102 }
+  },
+  {
+    "id": 19,
+    "title": "SpaceX Launch Success",
+    "description": "Latest mission from SpaceX reaches orbit successfully.",
+    "category": "science",
+    "image": "/images/science1.jpg",
+    "rating": { "rate": 4.8, "count": 95 }
+  },
+  {
+    "id": 20,
+    "title": "New Vaccine Research",
+    "description": "Breakthrough in vaccine development for rare diseases.",
+    "category": "science",
+    "image": "/images/science2.jpg",
+    "rating": { "rate": 4.7, "count": 80 }
+  },
+  {
+    "id": 21,
+    "title": "Climate Change Study 2025",
+    "description": "Global impact of climate change analyzed in recent study.",
+    "category": "science",
+    "image": "/images/science3.jpg",
+    "rating": { "rate": 4.6, "count": 90 }
+  },
+  {
+    "id": 22,
+    "title": "AI in Space Exploration",
+    "description": "AI helping scientists explore outer space efficiently.",
+    "category": "science",
+    "image": "/images/science4.jpg",
+    "rating": { "rate": 4.5, "count": 70 }
+  },
+  {
+    "id": 23,
+    "title": "Top Travel Destinations 2025",
+    "description": "Must-visit destinations around the world for 2025.",
+    "category": "travel",
+    "image": "/images/travel1.jpg",
+    "rating": { "rate": 4.7, "count": 85 }
+  },
+  {
+    "id": 24,
+    "title": "Eco-Friendly Tourism Tips",
+    "description": "How to travel sustainably without harming the planet.",
+    "category": "travel",
+    "image": "/images/travel2.jpg",
+    "rating": { "rate": 4.6, "count": 75 }
+  },
+  {
+    "id": 25,
+    "title": "Adventure Travel Guide",
+    "description": "Best adventure trips and activities around the globe.",
+    "category": "travel",
+    "image": "/images/travel3.jpg",
+    "rating": { "rate": 4.5, "count": 70 }
+  },
+  {
+    "id": 26,
+    "title": "Home Office Design Trends",
+    "description": "Modern lifestyle tips for a productive home office.",
+    "category": "lifestyle",
+    "image": "/images/lifestyle1.jpg",
+    "rating": { "rate": 4.6, "count": 65 }
+  },
+  {
+    "id": 27,
+    "title": "Minimalist Living Guide",
+    "description": "How to simplify your life and reduce clutter.",
+    "category": "lifestyle",
+    "image": "/images/lifestyle2.jpg",
+    "rating": { "rate": 4.7, "count": 70 }
+  },
+  {
+    "id": 28,
+    "title": "Work-Life Balance Tips",
+    "description": "Manage time effectively for better personal life.",
+    "category": "lifestyle",
+    "image": "/images/lifestyle3.jpg",
+    "rating": { "rate": 4.5, "count": 80 }
+  },
+  {
+    "id": 29,
+    "title": "Fashion Trends 2025",
+    "description": "Upcoming fashion styles and trends to follow.",
+    "category": "lifestyle",
+    "image": "/images/lifestyle4.jpg",
+    "rating": { "rate": 4.4, "count": 90 }
+  },
+  {
+    "id": 30,
+    "title": "Mindfulness & Meditation",
+    "description": "Incorporating mindfulness into daily lifestyle routines.",
+    "category": "lifestyle",
+    "image": "/images/lifestyle5.jpg",
+    "rating": { "rate": 4.8, "count": 100 }
+  },
+  {
+    "id": 31,
+    "title": "Smart Home Gadgets",
+    "description": "Latest lifestyle gadgets for a smarter home.",
+    "category": "lifestyle",
+    "image": "/images/lifestyle6.jpg",
+    "rating": { "rate": 4.6, "count": 85 }
+  },
+  {
+    "id": 32,
+    "title": "Top Movies Releasing Soon",
+    "description": "Exciting upcoming movies you shouldn’t miss in 2025.",
+    "category": "entertainment",
+    "image": "/images/entertainment1.jpg",
+    "rating": { "rate": 4.5, "count": 75 }
+  },
+  {
+    "id": 33,
+    "title": "Music Festivals Around the World",
+    "description": "Best music festivals to attend this year.",
+    "category": "entertainment",
+    "image": "/images/entertainment2.jpg",
+    "rating": { "rate": 4.6, "count": 65 }
+  },
+  {
+    "id": 34,
+    "title": "Celebrity Interviews 2025",
+    "description": "Exclusive interviews with top celebrities of the year.",
+    "category": "entertainment",
+    "image": "/images/entertainment3.jpg",
+    "rating": { "rate": 4.4, "count": 60 }
+  },
+  {
+    "id": 35,
+    "title": "Football World Cup Updates",
+    "description": "Latest news and results from the football world cup.",
+    "category": "sports",
+    "image": "/images/sports1.jpg",
+    "rating": { "rate": 4.7, "count": 90 }
+  },
+  {
+    "id": 36,
+    "title": "Olympic Games Highlights",
+    "description": "Memorable moments and achievements from the Olympics.",
+    "category": "sports",
+    "image": "/images/sports2.jpg",
+    "rating": { "rate": 4.6, "count": 85 }
+  },
+  {
+    "id": 37,
+    "title": "Top Tennis Tournaments",
+    "description": "Coverage of major tennis tournaments worldwide.",
+    "category": "sports",
+    "image": "/images/sports3.jpg",
+    "rating": { "rate": 4.5, "count": 75 }
+  },
+  {
+    "id": 38,
+    "title": "Basketball League Insights",
+    "description": "Analysis and news from top basketball leagues.",
+    "category": "sports",
+    "image": "/images/sports4.jpg",
+    "rating": { "rate": 4.6, "count": 80 }
+  },
+  {
+    "id": 39,
+    "title": "Extreme Sports Adventures",
+    "description": "Thrilling extreme sports events around the globe.",
+    "category": "sports",
+    "image": "/images/sports5.jpg",
+    "rating": { "rate": 4.5, "count": 70 }
+  },
+  {
+    "id": 40,
+    "title": "Online Learning Platforms Rising",
+    "description": "The growth of online education platforms in 2025.",
+    "category": "education",
+    "image": "/images/education1.jpg",
+    "rating": { "rate": 4.6, "count": 70 }
+  },
+  {
+    "id": 41,
+    "title": "STEM Programs for Kids",
+    "description": "New STEM initiatives to enhance kids' learning.",
+    "category": "education",
+    "image": "/images/education2.jpg",
+    "rating": { "rate": 4.7, "count": 65 }
+  },
+  {
+    "id": 42,
+    "title": "Higher Education Trends",
+    "description": "Trends shaping universities and colleges worldwide.",
+    "category": "education",
+    "image": "/images/education3.jpg",
+    "rating": { "rate": 4.5, "count": 60 }
+  },
+  {
+    "id": 43,
+    "title": "Scholarship Opportunities 2025",
+    "description": "Latest scholarships for students globally.",
+    "category": "education",
+    "image": "/images/education4.jpg",
+    "rating": { "rate": 4.6, "count": 55 }
+  },
+  {
+    "id": 44,
+    "title": "Startup Funding Insights",
+    "description": "Recent funding trends and opportunities for startups.",
+    "category": "business",
+    "image": "/images/business1.jpg",
+    "rating": { "rate": 4.5, "count": 80 }
+  },
+  {
+    "id": 45,
+    "title": "Market Expansion Strategies",
+    "description": "Effective strategies for businesses to grow globally.",
+    "category": "business",
+    "image": "/images/business2.jpg",
+    "rating": { "rate": 4.6, "count": 75 }
+  },
+  {
+    "id": 46,
+    "title": "E-Commerce Growth Trends",
+    "description": "How e-commerce continues to reshape business worldwide.",
+    "category": "business",
+    "image": "/images/business3.jpg",
+    "rating": { "rate": 4.7, "count": 70 }
   }
 ]
-

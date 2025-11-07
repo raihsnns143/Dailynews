@@ -1,20 +1,21 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import NewsCard, { NewsItem } from '../shared/NewsCard';
 
 const NewsList = () => {
-    const [news, setNews] = React.useState<NewsItem[]>([]);
-    //const [search, setSearch] = React.useState<string>('');
-    // const [category, setCategory] = React.useState<string>();
 
-    // 🔄 API থেকে ডেটা লোড করা হচ্ছে
+    const [news, setNews] = useState<NewsItem[]>([]);
+    const [search, setSearch] = useState<string>('');
+    const [category, setCategory] = useState<string>('');
+
+    // fetch json data
     useEffect(() => {
         const fetchNews = async () => {
             try {
                 const res = await fetch('/news.json');
                 const data = await res.json();
-                setNews(data); // 👈 news state set
+                setNews(data);
             } catch (error) {
                 console.error('Error fetching news:', error);
             }
@@ -23,31 +24,39 @@ const NewsList = () => {
         fetchNews();
     }, []);
 
+    // filter logic
+    const filteredNews = news.filter(item => {
+        const matchSearch =
+            item.title.toLowerCase().includes(search.toLowerCase()) ||
+            item.description.toLowerCase().includes(search.toLowerCase());
+
+        const matchCategory = category ? item.category === category : true;
+
+        return matchSearch && matchCategory;
+    });
+
+
     return (
+        <div className="max-w-5xl mx-auto px-4 py-6">
 
-        <div>
-            <div className='flex justify-between items-center  py-6'>
-                <form>
-                    <input type="search"
-                        placeholder='Search'
-                        className='border border-gray-800 rounded-lg px-2 py-2 w-full sm:w-64
-                         focus:outline-none focus:ring-2 focuse:ring-gray-800'
-                    />
-                </form>
+            {/* Search + Category */}
+            <div className='flex flex-col sm:flex-row justify-between items-center gap-4 mb-6'>
+                <input
+                    type="search"
+                    placeholder='Search news...'
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    className='border border-gray-300 rounded-lg px-3 py-2 w-full sm:w-64 focus:outline-none focus:ring-2 focus:ring-gray-300'
+                />
 
-                <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-700">
-                
-                </label>
                 <select
                     name="category"
                     id="category"
-                    defaultValue=""
-                    className="border border-gray-800 rounded-lg px-2 py-2 w-full sm:w-64 
-                    focus:outline-none focus:ring-2 focuse:ring-gray-800"
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                    className="border border-gray-300 rounded-lg px-3 py-2 w-full sm:w-64 focus:outline-none focus:ring-2 focus:ring-gray-300"
                 >
-                    <option value="" disabled>
-                        Select News
-                    </option>
+                    <option value="">All Categories</option>
                     <option value="technology">Technology</option>
                     <option value="science">Science</option>
                     <option value="health">Health</option>
@@ -59,19 +68,15 @@ const NewsList = () => {
                     <option value="travel">Travel</option>
                     <option value="food">Food</option>
                 </select>
-
-
-
-
             </div>
-            {/* api data new card */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4 py-6">
-                {news.map((item) => (
+
+            {/* Vertical News List */}
+            <div className="space-y-6">
+                {filteredNews.map(item => (
                     <NewsCard key={item.id} item={item} />
                 ))}
             </div>
         </div>
-
     );
 };
 
