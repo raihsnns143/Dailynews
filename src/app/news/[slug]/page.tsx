@@ -1,8 +1,7 @@
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
-// import { Button } from '@/components/ui/button'; 
 
-// ডেটা স্ট্রাকচারের জন্য ইন্টারফেস (ঠিক আছে)
+// 🟢 Type definition for News Item
 interface NewsItem {
   id: number;
   title: string;
@@ -16,57 +15,73 @@ interface NewsItem {
   };
 }
 
-// ✅ এরর ফিক্স: Page Props-এর জন্য type ব্যবহার করা হলো (যাতে বিল্ড এরর না আসে)
+// 🟢 Props type (slug expected)
 type NewsPageProps = {
-  params: { [key: string]: string }; // জেনেরিক টাইপ ব্যবহার করা হলো
+  params: { slug: string };
 };
 
-// 🩵 Fixed Page Component (works both local + live)
+// 🟢 Environment variable declarations (avoid TS warning)
+declare const process: {
+  env: {
+    NEXT_PUBLIC_BASE_URL?: string;
+    VERCEL_URL?: string;
+  };
+};
+
+// 🩵 Page Component
 export default async function NewsPage({ params }: NewsPageProps) {
   const { slug } = params;
 
-  // ✅ Live domain ও local দুই জায়গায় dynamic base URL handle করা হচ্ছে
+  // ✅ Dynamic Base URL (works both local + live)
   const baseUrl =
     process.env.NEXT_PUBLIC_BASE_URL ||
     (process.env.VERCEL_URL
       ? `https://${process.env.VERCEL_URL}`
       : 'https://www.raihans.shop');
 
-  // ✅ Absolute URL ব্যবহার করা হয়েছে, যাতে server-side fetch সবসময় সফল হয়
-  const res = await fetch(`${baseUrl}/news.json`, {
+  // ✅ Safe URL creation
+  const url = new URL('/news.json', baseUrl).toString();
+
+  // eslint-disable-next-line no-console
+  console.log('🟢 Fetching from:', url);
+
+  // ✅ Fetch news data
+  const res = await fetch(url, {
     cache: 'no-store',
     next: { revalidate: 0 },
   });
 
   if (!res.ok) {
-    console.error(`❌ Failed to fetch: ${baseUrl}/news.json`);
+    // eslint-disable-next-line no-console
+    console.error(`❌ Failed to fetch: ${url}`);
     return notFound();
   }
 
   const data: NewsItem[] = await res.json();
 
-  // ✅ slug অনুযায়ী item ফিল্টার
+  // ✅ Match news item by slug (id)
   const item = data.find((n) => n.id.toString() === slug);
 
   if (!item) {
     return notFound();
   }
 
-  // Description Auto-expansion logic (ঠিক আছে)
+  // ✅ Expand description if too short
   const expandedDescription =
     item.description.length > 500
       ? item.description
       : Array(5).fill(item.description).join(' ');
 
+  // ✅ Render page
   return (
     <div className="min-h-screen bg-background mt-8">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 bg-white rounded-xl shadow-xl overflow-hidden min-h-[80vh]">
-          
+
           {/* 🖼️ Image Section */}
           <div className="flex justify-center items-center bg-gray-50 p-8">
             <Image
-              src={item.image}
+              src={item.image as string}
               alt={item.title}
               width={400}
               height={400}
@@ -88,24 +103,10 @@ export default async function NewsPage({ params }: NewsPageProps) {
                 {expandedDescription}
               </p>
             </div>
-
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                {/* মূল্য এবং রেটিং ডিসপ্লে করা */}
-                {/* <span className="text-2xl font-semibold text-green-600">৳{item.price}</span> */}
-                {/* <span className="text-sm text-gray-500">
-                  ⭐ {item.rating.rate} ({item.rating.count} reviews)
-                </span> */}
-              </div>
-              
-              {/* বাটন (যদি Button কম্পোনেন্ট থাকে তবে Uncomment করুন) */}
-              {/* <Button className="w-full md:w-auto px-6 py-2 text-sm font-medium bg-indigo-600 hover:bg-indigo-700 text-white rounded-md transition-colors duration-200">
-                🛒 Add to Cart
-              </Button> */}
-            </div>
           </div>
         </div>
       </div>
     </div>
   );
 }
+
