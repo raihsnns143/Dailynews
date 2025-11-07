@@ -14,40 +14,29 @@ interface NewsItem {
   };
 }
 
-// 🟢 Props type (slug expected)
+// 🟢 Props type
 type NewsPageProps = {
   params: { slug: string };
 };
 
-// 🩵 Page Component
 export default async function NewsPage({ params }: NewsPageProps) {
   const { slug } = params;
 
-  // ✅ Dynamic Base URL
+  // ✅ Use correct base URL in production or local
   const baseUrl =
-    process.env.NEXT_PUBLIC_BASE_URL ||
-    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://www.raihans.shop');
+    process.env.NEXT_PUBLIC_BASE_URL || 'https://www.raihans.shop';
 
-  const url = new URL('/news.json', baseUrl).toString();
-
-  // eslint-disable-next-line no-console
-  console.log('🟢 Fetching from:', url);
+  const url = `${baseUrl}/news.json`;
+  console.log('Fetching news from:', url);
 
   let data: NewsItem[] = [];
+
   try {
-    const res = await fetch(url, {
-      cache: 'no-store',
-      next: { revalidate: 0 },
-    });
-
-    if (!res.ok) {
-      throw new Error(`Failed to fetch: ${res.status}`);
-    }
-
+    const res = await fetch(url, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`);
     data = await res.json();
   } catch (error) {
-    console.error('❌ Error fetching news:', error);
-    // Show error message instead of crashing
+    console.error('❌ Fetch error:', error);
     return (
       <div className="min-h-screen flex items-center justify-center">
         <p className="text-red-600 text-lg">Failed to load news.</p>
@@ -55,6 +44,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
     );
   }
 
+  // ✅ Match item by slug (id)
   const item = data.find((n) => n.id.toString() === slug);
 
   if (!item) {
@@ -65,6 +55,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
     );
   }
 
+  // ✅ Expand description if short
   const expandedDescription =
     item.description.length > 500
       ? item.description
@@ -74,6 +65,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
     <div className="min-h-screen bg-background mt-8">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 bg-white rounded-xl shadow-xl overflow-hidden min-h-[80vh]">
+
           {/* 🖼️ Image Section */}
           <div className="flex justify-center items-center bg-gray-50 p-8">
             <Image
